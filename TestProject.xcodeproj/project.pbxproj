@@ -29,9 +29,11 @@
 		84F686AC2567FC5E00450BEA /* CountriesInformationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686AB2567FC5E00450BEA /* CountriesInformationPresenter.swift */; };
 		84F686B12567FC7400450BEA /* CountriesInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686AE2567FC7400450BEA /* CountriesInformationView.swift */; };
 		84F686B22567FC7400450BEA /* CountryDetailCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686B02567FC7400450BEA /* CountryDetailCustomTableViewCell.swift */; };
+		84F686B72568231C00450BEA /* UIVIewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686B62568231C00450BEA /* UIVIewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		843C18CF2568505100DC2999 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NVActivityIndicatorView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		844D2CF52566238100D81189 /* TestProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844D2CF82566238100D81189 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844D2CFA2566238100D81189 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		84F686AB2567FC5E00450BEA /* CountriesInformationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationPresenter.swift; sourceTree = "<group>"; };
 		84F686AE2567FC7400450BEA /* CountriesInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationView.swift; sourceTree = "<group>"; };
 		84F686B02567FC7400450BEA /* CountryDetailCustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryDetailCustomTableViewCell.swift; sourceTree = "<group>"; };
+		84F686B62568231C00450BEA /* UIVIewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extension.swift"; sourceTree = "<group>"; };
 		91B88E6BD3104391BE5E4E1B /* Pods-TestProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProject.release.xcconfig"; path = "Target Support Files/Pods-TestProject/Pods-TestProject.release.xcconfig"; sourceTree = "<group>"; };
 		9C910EF3B9A6B0196478C9B8 /* Pods-TestProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProject.debug.xcconfig"; path = "Target Support Files/Pods-TestProject/Pods-TestProject.debug.xcconfig"; sourceTree = "<group>"; };
 		E67231326C6E80C6527946EE /* Pods_TestProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +147,7 @@
 			children = (
 				84F6869F2567F84500450BEA /* Data+Extension.swift */,
 				84F686882567F42F00450BEA /* String+Extension.swift */,
+				84F686B62568231C00450BEA /* UIVIewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -251,6 +255,7 @@
 		9C14D764F8189E3D8C810457 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843C18CF2568505100DC2999 /* NVActivityIndicatorView.framework */,
 				E67231326C6E80C6527946EE /* Pods_TestProject.framework */,
 			);
 			name = Frameworks;
@@ -371,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F686B72568231C00450BEA /* UIVIewController+Extension.swift in Sources */,
 				84F686A92567FC5600450BEA /* CountriesInformationDataSource.swift in Sources */,
 				84F686892567F43000450BEA /* String+Extension.swift in Sources */,
 				84F6868F2567F4AC00450BEA /* AppFont.swift in Sources */,

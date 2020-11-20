@@ -19,6 +19,7 @@ class CountriesInformationView: UIView {
     private var objCountriesInformationViewModel = CountriesInformationViewModel()
     private var objDataSource = CountriesInformationDataSource.shared
     var updateTitle: (() -> Void)?
+    var countryResultFetched: (() -> Void)?
     
     // Method to setup data initially
     func initialSetup() {
@@ -67,6 +68,9 @@ class CountriesInformationView: UIView {
                     callBack()
                 }
                 DispatchQueue.main.async {
+                    if let callBack = self.countryResultFetched {
+                        callBack()
+                    }
                     self.tblView.reloadData()
                 }
             }

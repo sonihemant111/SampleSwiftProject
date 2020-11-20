@@ -1,22 +1,26 @@
 PODS:
+  - EmptyDataSet-Swift (5.0.0)
   - SDWebImage (5.9.5):
     - SDWebImage/Core (= 5.9.5)
   - SDWebImage/Core (5.9.5)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
+  - EmptyDataSet-Swift
   - SDWebImage
   - Toast-Swift
 
 SPEC REPOS:
   trunk:
+    - EmptyDataSet-Swift
     - SDWebImage
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   SDWebImage: 0b2ba0d56479bf6a45ecddbfd5558bea93150d25
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: ea224e1be1ee3b6c79de9b7744103dbb82900a1f
+PODFILE CHECKSUM: 2da15eafaef23c3c6695322d0bc9ff0cdf0ede5e
 
 COCOAPODS: 1.10.0.rc.1

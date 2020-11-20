@@ -16,6 +16,8 @@ class CountriesInformationController: UIViewController {
         if let vw = self.view as? CountriesInformationView {
             // Calling initial setup method of the view
             vw.initialSetup()
+            // Setting empty data -> it will show a message if data is not available 
+            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: vw.tblView, isLargeText: false, emptyDataState: .noData)
             // To update the navigation title
             vw.updateTitle = { [weak self] in
                 guard let self = self else { return }
@@ -24,6 +26,10 @@ class CountriesInformationController: UIViewController {
                         self.title = countryName
                     }
                 }
+            }
+            vw.countryResultFetched = { [weak self] in
+                guard let self = self else { return }
+                self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: vw.tblView, isLargeText: false, emptyDataState: .noData)
             }
         }
     }

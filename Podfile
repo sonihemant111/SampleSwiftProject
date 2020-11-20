@@ -8,5 +8,5 @@ target 'TestProject' do
   # Pods for TestProject
   pod 'SDWebImage'
   pod 'Toast-Swift'
-
+  pod 'EmptyDataSet-Swift'
 end

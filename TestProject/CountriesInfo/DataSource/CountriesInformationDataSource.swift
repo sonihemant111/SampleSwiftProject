@@ -10,6 +10,7 @@ import Foundation
 
 // This class treated as a data source and written methods to get the details that we fetched from API
 class CountriesInformationDataSource {
+    private var countryName: String?
     private var arrCountryData:[CountryData]?
     static let shared = CountriesInformationDataSource()
     private init(){}
@@ -29,6 +30,16 @@ class CountriesInformationDataSource {
     func getCountryDataOfIndex(_ index: Int) -> CountryData? {
         guard let arrCountryData = self.arrCountryData, arrCountryData.indices.contains(index) else { return nil }
         return arrCountryData[index]
+    }
+    
+    // Method to set title/Country name
+    func setCountryName(_ strtitle: String) {
+        self.countryName = strtitle
+    }
+    
+    // Method to get title/Country name
+    func getCountryName() -> String? {
+        return countryName
     }
 }
 

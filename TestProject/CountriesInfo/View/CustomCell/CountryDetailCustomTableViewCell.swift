@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 class CountryDetailCustomTableViewCell: UITableViewCell {
 
@@ -68,8 +68,8 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
     // Method to setup data
     func setUpData(_ objCountryData: CountryData) {
         let imgUrl = URL(string: objCountryData.image ?? "")
-        img.sd_setImage(with: imgUrl, placeholderImage: #imageLiteral(resourceName: "placeholderImage"))
-
+        img.kf.setImage( with: imgUrl, placeholder: #imageLiteral(resourceName: "placeholderImage"))
+        
         lblTitle.text = objCountryData.title?.trimmingCharacters(in: .whitespacesAndNewlines).capitalized ?? "Not available"
         lblDescription.text = objCountryData.description?.trimmingCharacters(in: .whitespacesAndNewlines).capitalizingFirstLetter() ?? "Not available"
     

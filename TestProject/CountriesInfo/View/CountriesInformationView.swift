@@ -8,6 +8,7 @@
 
 import UIKit
 import Toast_Swift
+import Kingfisher
 
 class CountriesInformationView: UIView {
     
@@ -118,6 +119,7 @@ extension CountriesInformationView: UITableViewDataSourcePrefetching {
             guard let `self` = self else { return }
             
             if let objCountryData = self.objDataSource.getCountryDataOfIndex(index.row) {
+                UIImageView.cacheImage(url: objCountryData.image ?? "")
             }
         }
     }

@@ -16,7 +16,7 @@ extension UIViewController {
     enum NoDataFoundCase {
         case noData
     }
-
+    
     // MARK: - settingEmptyDataSet method
     //=================================
     func settingEmptyDataSet(placeholder: String, placeholderTV: UITableView, isLargeText: Bool = false, emptyDataState: NoDataFoundCase = NoDataFoundCase.noData) {

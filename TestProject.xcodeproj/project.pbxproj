@@ -18,6 +18,11 @@
 		84F6868F2567F4AC00450BEA /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6868E2567F4AC00450BEA /* AppFont.swift */; };
 		84F686912567F4DC00450BEA /* AppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686902567F4DC00450BEA /* AppGlobals.swift */; };
 		84F686952567F67100450BEA /* CountriesInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686942567F67100450BEA /* CountriesInformationModel.swift */; };
+		84F686992567F79F00450BEA /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686972567F79F00450BEA /* WebService.swift */; };
+		84F6869A2567F79F00450BEA /* AppNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686982567F79F00450BEA /* AppNetworking.swift */; };
+		84F6869C2567F7B600450BEA /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6869B2567F7B600450BEA /* Reachability.swift */; };
+		84F6869E2567F7E000450BEA /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6869D2567F7E000450BEA /* ApiKey.swift */; };
+		84F686A02567F84500450BEA /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6869F2567F84500450BEA /* Data+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,11 @@
 		84F6868E2567F4AC00450BEA /* AppFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
 		84F686902567F4DC00450BEA /* AppGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGlobals.swift; sourceTree = "<group>"; };
 		84F686942567F67100450BEA /* CountriesInformationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationModel.swift; sourceTree = "<group>"; };
+		84F686972567F79F00450BEA /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		84F686982567F79F00450BEA /* AppNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNetworking.swift; sourceTree = "<group>"; };
+		84F6869B2567F7B600450BEA /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		84F6869D2567F7E000450BEA /* ApiKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
+		84F6869F2567F84500450BEA /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		91B88E6BD3104391BE5E4E1B /* Pods-TestProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProject.release.xcconfig"; path = "Target Support Files/Pods-TestProject/Pods-TestProject.release.xcconfig"; sourceTree = "<group>"; };
 		9C910EF3B9A6B0196478C9B8 /* Pods-TestProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProject.debug.xcconfig"; path = "Target Support Files/Pods-TestProject/Pods-TestProject.debug.xcconfig"; sourceTree = "<group>"; };
 		E67231326C6E80C6527946EE /* Pods_TestProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +90,7 @@
 		844D2CF72566238100D81189 /* TestProject */ = {
 			isa = PBXGroup;
 			children = (
+				84F686962567F77100450BEA /* WebService */,
 				84F686922567F65800450BEA /* CountriesInfo */,
 				84F6868A2567F48D00450BEA /* Utilities */,
 				844D2D372566270800D81189 /* Lifecycle */,
@@ -119,6 +130,7 @@
 		84F686852567F41700450BEA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				84F6869F2567F84500450BEA /* Data+Extension.swift */,
 				84F686882567F42F00450BEA /* String+Extension.swift */,
 			);
 			path = Extensions;
@@ -157,6 +169,17 @@
 				84F686942567F67100450BEA /* CountriesInformationModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		84F686962567F77100450BEA /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				84F6869D2567F7E000450BEA /* ApiKey.swift */,
+				84F6869B2567F7B600450BEA /* Reachability.swift */,
+				84F686982567F79F00450BEA /* AppNetworking.swift */,
+				84F686972567F79F00450BEA /* WebService.swift */,
+			);
+			path = WebService;
 			sourceTree = "<group>";
 		};
 		9C14D764F8189E3D8C810457 /* Frameworks */ = {
@@ -284,11 +307,16 @@
 			files = (
 				84F686892567F43000450BEA /* String+Extension.swift in Sources */,
 				84F6868F2567F4AC00450BEA /* AppFont.swift in Sources */,
+				84F686992567F79F00450BEA /* WebService.swift in Sources */,
 				84F686952567F67100450BEA /* CountriesInformationModel.swift in Sources */,
+				84F6869E2567F7E000450BEA /* ApiKey.swift in Sources */,
+				84F686A02567F84500450BEA /* Data+Extension.swift in Sources */,
 				84F6868D2567F4A600450BEA /* AppColor.swift in Sources */,
 				844D2CF92566238100D81189 /* AppDelegate.swift in Sources */,
 				84F686912567F4DC00450BEA /* AppGlobals.swift in Sources */,
 				844D2CFB2566238100D81189 /* SceneDelegate.swift in Sources */,
+				84F6869C2567F7B600450BEA /* Reachability.swift in Sources */,
+				84F6869A2567F79F00450BEA /* AppNetworking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

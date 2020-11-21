@@ -40,8 +40,6 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         lblDescription.numberOfLines = 0
         self.setTextColor()
         self.setFont()
-        // set background color of image
-        self.img.backgroundColor = AppColors.lightGrayColor
         // set corner radius of image
         self.img.layer.cornerRadius = 5.0
         self.img.clipsToBounds = true

@@ -15,6 +15,6 @@ enum ApiKey {
 
 //MARK:- Api Code
 //=======================
-enum ApiCode {
+enum HttpStatusCode {
     static var success: Int { return 200 } // Success
 }

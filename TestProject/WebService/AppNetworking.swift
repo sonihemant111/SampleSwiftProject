@@ -17,4 +17,6 @@ enum AppNetworking {
             return false
         }
     }
+    
+    
 }

@@ -21,7 +21,8 @@ class CountriesInformationView: UIView {
     private var objDataSource = CountriesInformationDataSource.shared
     var updateTitle: (() -> Void)?
     var countryResultFetched: (() -> Void)?
-    
+    let objCountriesInformationPresenter = CountriesInformationPresenter()
+
     // Method to setup data initially
     func initialSetup() {
         self.configureTableView()
@@ -56,24 +57,36 @@ class CountriesInformationView: UIView {
         tblView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
     }
     
+    // Method to reload data once result fetched
+    func reloadCountryData() {
+        if let callBack = self.updateTitle {
+            callBack()
+        }
+        DispatchQueue.main.async {
+            if let callBack = self.countryResultFetched {
+                callBack()
+            }
+            self.tblView.reloadData()
+        }
+    }
+    
     // Refresh Fav Feed
     @objc func fetchCountryData() {
         if (AppNetworking.isConnected()) {
             // Call API to fetch the result
-            objCountriesInformationViewModel.objCountriesInformationPresenter.fetchCountreyData { [weak self] (model) in
-                guard let self = self, let model = model, let arrCountryData = model.countryData else { return }
+            objCountriesInformationViewModel.objCountriesInformationPresenter.fetchCountreyData { [weak self] (model, err) in
+                guard let self = self else { return }
+                
+                if err != nil {
+                    self.reloadCountryData()
+                    return
+                }
+                
+                guard let model = model, let arrCountryData = model.countryData else { return }
                 self.objDataSource.setCountryData(arrCountryData)
                 self.objDataSource.setCountryName(model.countryName ?? "")
                 // Update the title of the screen with fetched country name
-                if let callBack = self.updateTitle {
-                    callBack()
-                }
-                DispatchQueue.main.async {
-                    if let callBack = self.countryResultFetched {
-                        callBack()
-                    }
-                    self.tblView.reloadData()
-                }
+                self.reloadCountryData()
             }
         } else {
             // show message

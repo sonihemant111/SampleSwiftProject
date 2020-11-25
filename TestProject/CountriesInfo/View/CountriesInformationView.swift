@@ -11,20 +11,19 @@ import Toast_Swift
 import Kingfisher
 
 class CountriesInformationView: UIView {
-    
-    // IBOutlets
-    @IBOutlet weak var tblView: UITableView!    
-    
     // Variables
+    let tblView = UITableView()
+    private var safeArea: UILayoutGuide!
     private var refreshController = UIRefreshControl()
     private var objCountriesInformationViewModel = CountriesInformationViewModel()
     private var objDataSource = CountriesInformationDataSource.shared
     var updateTitle: (() -> Void)?
     var countryResultFetched: (() -> Void)?
     let objCountriesInformationPresenter = CountriesInformationPresenter()
-
+    
     // Method to setup data initially
     func initialSetup() {
+        safeArea = self.layoutMarginsGuide
         self.configureTableView()
         self.setupRefreshController()
         self.fetchCountryData()
@@ -47,8 +46,16 @@ class CountriesInformationView: UIView {
     
     // Method to confiqure the table view
     private func configureTableView() {
-        // set estimated heigth of table view
-        tblView.estimatedRowHeight = 100
+        // Adding table view in controller's view
+        self.addSubview(tblView)
+        // Apply constraints on table view
+        tblView.translatesAutoresizingMaskIntoConstraints = false
+        tblView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        tblView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        tblView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        tblView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        // Register table view Cell
+        tblView.register(CountryDetailCustomTableViewCell.self, forCellReuseIdentifier: "CountryDetailCustomTableViewCell")
         // set delegate and datasource as self
         tblView.delegate = self
         tblView.dataSource = self
@@ -126,7 +133,6 @@ extension CountriesInformationView: UITableViewDataSource, UITableViewDelegate {
 //MARK:- Prefetching DataSource
 //=============================
 extension CountriesInformationView: UITableViewDataSourcePrefetching {
-    
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { [weak self] (index) in
             guard let `self` = self else { return }

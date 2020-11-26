@@ -57,22 +57,21 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         contentHolderView.addSubview(lblTitle)
         
         self.applyConatrainsOnViews()
-//        lblTitle.backgroundColor = UIColor.red
-//        lblDescription.backgroundColor = UIColor.yellow
-//        contentHolderView.backgroundColor = UIColor.green
-//        self.backgroundColor = UIColor.systemPink
-        
         // set a border and corner radius on comntent view
         contentHolderView.layer.borderWidth = 1.0
         contentHolderView.layer.borderColor = AppColors.lightGrayColor.cgColor
         contentHolderView.layer.cornerRadius = 10.0
+        contentHolderView.clipsToBounds = true
     }
     
     // Method to apply constraint on all the UIViews element
     func applyConatrainsOnViews() {
+        lblTitle.backgroundColor = .red
+        lblDescription.backgroundColor = .yellow
+        
         // Applying constraints on the views
         contentHolderView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, enableInsets: false)
-        contentHolderView.heightAnchor.constraint(greaterThanOrEqualToConstant: 110).isActive = true
+        contentHolderView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
         
         // Applying constraints on the views
         img.anchor(top: contentHolderView.topAnchor, left: contentHolderView.leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 0, width: 90, height: 90, enableInsets: false)
@@ -80,8 +79,12 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         lblTitle.anchor(top: contentHolderView.topAnchor, left: img.rightAnchor, bottom: nil, right: contentHolderView.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 0, height: 0, enableInsets: false)
         lblTitle.setContentHuggingPriority(.defaultHigh, for:.vertical)
         
-        
-        lblDescription.anchor(top: lblTitle.bottomAnchor, left: lblTitle.leftAnchor, bottom: contentHolderView.bottomAnchor, right: lblTitle.rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+        lblDescription.anchor(top: lblTitle.bottomAnchor, left: lblTitle.leftAnchor, bottom: bottomAnchor, right: lblTitle.rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+                
+//        let bottomConst = lblDescription.bottomAnchor.constraint(greaterThanOrEqualTo: contentHolderView.bottomAnchor, constant: 50)
+////        bottomConst.priority = .defaultLow
+//        bottomConst.isActive = true
+    
     }
     
     required init?(coder: NSCoder) {

@@ -9,10 +9,12 @@
 import UIKit
 import Toast_Swift
 import Kingfisher
+import NVActivityIndicatorView
 
 class CountriesInformationView: UIView {
     // Variables
     let tblView = UITableView()
+    var loaderView: NVActivityIndicatorView!
     private var safeArea: UILayoutGuide!
     private var refreshController = UIRefreshControl()
     private var objCountriesInformationViewModel = CountriesInformationViewModel()
@@ -24,7 +26,7 @@ class CountriesInformationView: UIView {
     // Method to setup data initially
     func initialSetup() {
         safeArea = self.layoutMarginsGuide
-        self.configureTableView()
+        self.configureViews()
         self.setupRefreshController()
         self.fetchCountryData()
     }
@@ -41,7 +43,15 @@ class CountriesInformationView: UIView {
     // pull to refresh the list of forums
     @objc func pullToRefreshCountryData() {
         self.refreshController.endRefreshing()
-        self.fetchCountryData()
+        self.fetchCountryData(false)
+    }
+    
+    // Method to confiqure UI Element
+    func configureViews() {
+        self.configureTableView()
+        // Add loader view
+        loaderView = NVActivityIndicatorView(frame: CGRect(x: self.center.x - 25, y: self.center.y, width: 50, height: 50), type: .ballClipRotate, color: AppColors.darkGrayColor, padding: 0.0)
+        self.addSubview(loaderView)
     }
     
     // Method to confiqure the table view
@@ -56,6 +66,8 @@ class CountriesInformationView: UIView {
         tblView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         // Register table view Cell
         tblView.register(CountryDetailCustomTableViewCell.self, forCellReuseIdentifier: "CountryDetailCustomTableViewCell")
+        // Hide the veritcal scroll
+        tblView.showsVerticalScrollIndicator = false
         // set delegate and datasource as self
         tblView.delegate = self
         tblView.dataSource = self
@@ -78,9 +90,13 @@ class CountriesInformationView: UIView {
     }
     
     // Refresh Fav Feed
-    @objc func fetchCountryData() {
+    @objc func fetchCountryData(_ isRefreshing: Bool = true) {
         if (AppNetworking.isConnected()) {
             // Call API to fetch the result
+            if isRefreshing {
+                self.loaderView.startAnimating()
+                self.loaderView.isHidden = false
+            }
             objCountriesInformationViewModel.objCountriesInformationPresenter.fetchCountreyData { [weak self] (model, err) in
                 guard let self = self else { return }
                 
@@ -92,8 +108,12 @@ class CountriesInformationView: UIView {
                 guard let model = model, let arrCountryData = model.countryData else { return }
                 self.objDataSource.setCountryData(arrCountryData)
                 self.objDataSource.setCountryName(model.countryName ?? "")
-                // Update the title of the screen with fetched country name
-                self.reloadCountryData()
+                DispatchQueue.main.async {
+                    // Update the title of the screen with fetched country name
+                    self.reloadCountryData()
+                    self.loaderView.stopAnimating()
+                    self.loaderView.isHidden = true
+                }
             }
         } else {
             // show message

@@ -9,4 +9,5 @@ target 'TestProject' do
   pod 'Kingfisher'
   pod 'Toast-Swift'
   pod 'EmptyDataSet-Swift'
+  pod 'NVActivityIndicatorView'
 end

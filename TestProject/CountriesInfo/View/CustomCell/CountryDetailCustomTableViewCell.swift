@@ -55,37 +55,40 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         contentHolderView.addSubview(img)
         contentHolderView.addSubview(lblDescription)
         contentHolderView.addSubview(lblTitle)
-        
-        self.applyConatrainsOnViews()
+                
         // set a border and corner radius on comntent view
         contentHolderView.layer.borderWidth = 1.0
         contentHolderView.layer.borderColor = AppColors.lightGrayColor.cgColor
         contentHolderView.layer.cornerRadius = 10.0
         contentHolderView.clipsToBounds = true
+        
+        // Apply constraint on views
+        self.applyConatrainsOnViews()
     }
     
     // Method to apply constraint on all the UIViews element
-    func applyConatrainsOnViews() {
-        lblTitle.backgroundColor = .red
-        lblDescription.backgroundColor = .yellow
-        
+    func applyConatrainsOnViews() {        
         // Applying constraints on the views
         contentHolderView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, enableInsets: false)
         contentHolderView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
         
+        
         // Applying constraints on the views
         img.anchor(top: contentHolderView.topAnchor, left: contentHolderView.leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 0, width: 90, height: 90, enableInsets: false)
+
         
         lblTitle.anchor(top: contentHolderView.topAnchor, left: img.rightAnchor, bottom: nil, right: contentHolderView.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 0, height: 0, enableInsets: false)
         lblTitle.setContentHuggingPriority(.defaultHigh, for:.vertical)
         
-        lblDescription.anchor(top: lblTitle.bottomAnchor, left: lblTitle.leftAnchor, bottom: bottomAnchor, right: lblTitle.rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-                
-//        let bottomConst = lblDescription.bottomAnchor.constraint(greaterThanOrEqualTo: contentHolderView.bottomAnchor, constant: 50)
-////        bottomConst.priority = .defaultLow
-//        bottomConst.isActive = true
-    
+
+        lblDescription.anchor(top: lblTitle.bottomAnchor, left: lblTitle.leftAnchor, bottom: nil, right: lblTitle.rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+           
+        let constBottom = lblDescription.bottomAnchor.constraint(equalTo: bottomAnchor)
+        constBottom.constant = -10
+        constBottom.priority = .defaultLow
+        constBottom.isActive = true
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -133,12 +136,15 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
     
     // Method to setup data
     func setUpData(_ objCountryData: CountryData) {
+        // set image
         let imgUrl = URL(string: objCountryData.image ?? "")
         img.kf.setImage( with: imgUrl, placeholder: #imageLiteral(resourceName: "placeholderImage"))
         
+        // set title and subtitle text
         lblTitle.text = objCountryData.title?.trimmingCharacters(in: .whitespacesAndNewlines).capitalized ?? "Not available"
         lblDescription.text = objCountryData.description?.trimmingCharacters(in: .whitespacesAndNewlines).capitalizingFirstLetter() ?? "Not available"
         
         self.selectionStyle = .none
+//        self.applyConatrainsOnViews()
     }
 }

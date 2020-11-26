@@ -46,7 +46,7 @@ class CountriesInformationView: UIView {
         self.fetchCountryData(false)
     }
     
-    // Method to confiqure UI Element
+    // Method to configure UI Element
     func configureViews() {
         self.configureTableView()
         // Add loader view
@@ -54,7 +54,7 @@ class CountriesInformationView: UIView {
         self.addSubview(loaderView)
     }
     
-    // Method to confiqure the table view
+    // Method to configure the table view
     private func configureTableView() {
         // Adding table view in controller's view
         self.addSubview(tblView)

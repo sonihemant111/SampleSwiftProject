@@ -21,14 +21,8 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    // Label to display the title
+    // contentHolderView holds all the elements in cell
     private let contentHolderView : UIView = {
-        let vw = UIView()
-        return vw
-    }()
-    
-    // Label to display the title
-    private let mediaHolderView : UIView = {
         let vw = UIView()
         return vw
     }()
@@ -47,77 +41,86 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         return imgView
     }()
     
+    // contentHolderSubStackView holding lblTitle and lblDescription
+    private let contentHolderSubStackView : UIStackView = {
+        let stackview = UIStackView()
+        return stackview
+    }()
+    
+    private let contentHolderStackView : UIStackView = {
+        let stackview = UIStackView()
+        return stackview
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.confiqureCell()
+        self.configureCell()
     }
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.clipsToBounds = true
-        // Adding all the views as labels and image
+        // Adding the views in parent view
         addSubview(contentHolderView)
-        addSubview(mediaHolderView)
-                
+        addSubview(img)
+        
+        // setup/configure
+        self.setupAllViewElement()
+    }
+    
+    // Method to apply constraint on all the UIViews element
+    func setupAllViewElement() {
         // set a border and corner radius on comntent view
         contentHolderView.layer.borderWidth = 1.0
         contentHolderView.layer.borderColor = AppColors.lightGrayColor.cgColor
         contentHolderView.layer.cornerRadius = 10.0
         contentHolderView.clipsToBounds = true
         
-        // Apply constraint on views
-        self.applyConatrainsOnViews()
-    }
-    
-    // Method to apply constraint on all the UIViews element
-    func applyConatrainsOnViews() {
+        // Confiquring contentHolderView (Constraints)
         contentHolderView.translatesAutoresizingMaskIntoConstraints = false
         contentHolderView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         contentHolderView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         contentHolderView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         contentHolderView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
-        
-        mediaHolderView.translatesAutoresizingMaskIntoConstraints = false
-        mediaHolderView.widthAnchor.constraint(equalToConstant: 90).isActive = true
-        mediaHolderView.heightAnchor.constraint(equalToConstant: 90).isActive = true
-
-        mediaHolderView.addSubview(img)
-        mediaHolderView.clipsToBounds = true
-
+        // Confiquring image (Constraints)
         img.translatesAutoresizingMaskIntoConstraints = false
-        img.leadingAnchor.constraint(equalTo: mediaHolderView.leadingAnchor, constant: 10).isActive = true
-        img.topAnchor.constraint(equalTo: mediaHolderView.topAnchor, constant: 0).isActive = true
-        img.bottomAnchor.constraint(equalTo: mediaHolderView.bottomAnchor, constant: 0).isActive = true
-        img.rightAnchor.constraint(equalTo: mediaHolderView.rightAnchor, constant: 0).isActive = true
+        img.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        img.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        img.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        img.heightAnchor.constraint(equalToConstant: 90).isActive = true
         img.clipsToBounds = true
         
-        let subStackView = UIStackView.init(arrangedSubviews: [lblTitle,lblDescription])
-        subStackView.backgroundColor = .red
-        subStackView.translatesAutoresizingMaskIntoConstraints = false
-        subStackView.axis = .vertical
-        subStackView.distribution = .fill
-        subStackView.spacing = 10
-        subStackView.alignment = .top
-        subStackView.isLayoutMarginsRelativeArrangement = true
-        subStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 5)
+        // Added title and description in stackview
+        contentHolderSubStackView.addArrangedSubview(lblTitle)
+        contentHolderSubStackView.addArrangedSubview(lblDescription)
+        contentHolderSubStackView.backgroundColor = .red
+        contentHolderSubStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentHolderSubStackView.axis = .vertical
+        contentHolderSubStackView.distribution = .fill
+        contentHolderSubStackView.spacing = 10
+        contentHolderSubStackView.alignment = .top
+        contentHolderSubStackView.isLayoutMarginsRelativeArrangement = true
+        contentHolderSubStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 5)
 
-        let stackView = UIStackView.init(arrangedSubviews: [mediaHolderView, subStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.alignment = .top
-        stackView.spacing = 10
-        contentHolderView.addSubview( stackView)
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 0)
+        // adding contentHolderSubStackView and image in main contentHolder stackView
+        contentHolderStackView.addArrangedSubview(img)
+        contentHolderStackView.addArrangedSubview(contentHolderSubStackView)
+        contentHolderStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentHolderStackView.axis = .horizontal
+        contentHolderStackView.distribution = .fill
+        contentHolderStackView.alignment = .top
+        contentHolderStackView.spacing = 10
+        contentHolderView.addSubview( contentHolderStackView)
+        contentHolderStackView.isLayoutMarginsRelativeArrangement = true
+        contentHolderStackView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
-        stackView.centerXAnchor.constraint(equalTo: contentHolderView.centerXAnchor).isActive = true
-        stackView.centerYAnchor.constraint(equalTo: contentHolderView.centerYAnchor).isActive = true
-        stackView.widthAnchor.constraint(equalTo: contentHolderView.widthAnchor).isActive = true
-        stackView.heightAnchor.constraint(equalTo: contentHolderView.heightAnchor).isActive = true
+        // Confiquring image (Constraints)
+        contentHolderStackView.centerXAnchor.constraint(equalTo: contentHolderView.centerXAnchor).isActive = true
+        contentHolderStackView.centerYAnchor.constraint(equalTo: contentHolderView.centerYAnchor).isActive = true
+        contentHolderStackView.widthAnchor.constraint(equalTo: contentHolderView.widthAnchor).isActive = true
+        contentHolderStackView.heightAnchor.constraint(equalTo: contentHolderView.heightAnchor).isActive = true
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -134,8 +137,8 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         self.lblDescription.text = ""
     }
     
-    // Method to confiqure the cell
-    func confiqureCell() {
+    // Method to configure the cell
+    func configureCell() {
         lblTitle.numberOfLines = 0
         lblDescription.numberOfLines = 0
         self.setTextColor()
@@ -143,7 +146,6 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         // set corner radius of image
         self.img.layer.cornerRadius = 5.0
         self.img.clipsToBounds = true
-        
         // set border of container view
         self.containerView.layer.borderWidth = 1.0
         self.containerView.layer.borderColor = AppColors.lightGrayColor.cgColor
@@ -174,6 +176,5 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         lblDescription.text = objCountryData.description?.trimmingCharacters(in: .whitespacesAndNewlines).capitalizingFirstLetter() ?? "Not available"
         
         self.selectionStyle = .none
-//        self.applyConatrainsOnViews()
     }
 }

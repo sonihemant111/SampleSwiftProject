@@ -27,6 +27,12 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         return vw
     }()
     
+    // Label to display the title
+    private let mediaHolderView : UIView = {
+        let vw = UIView()
+        return vw
+    }()
+    
     // Label to display the description
     private let lblDescription : UILabel = {
         let lbl = UILabel()
@@ -52,9 +58,7 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         self.clipsToBounds = true
         // Adding all the views as labels and image
         addSubview(contentHolderView)
-        contentHolderView.addSubview(img)
-        contentHolderView.addSubview(lblDescription)
-        contentHolderView.addSubview(lblTitle)
+        addSubview(mediaHolderView)
                 
         // set a border and corner radius on comntent view
         contentHolderView.layer.borderWidth = 1.0
@@ -67,26 +71,51 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
     }
     
     // Method to apply constraint on all the UIViews element
-    func applyConatrainsOnViews() {        
-        // Applying constraints on the views
-        contentHolderView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, enableInsets: false)
-        contentHolderView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).isActive = true
+    func applyConatrainsOnViews() {
+        contentHolderView.translatesAutoresizingMaskIntoConstraints = false
+        contentHolderView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        contentHolderView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        contentHolderView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        contentHolderView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         
-        
-        // Applying constraints on the views
-        img.anchor(top: contentHolderView.topAnchor, left: contentHolderView.leftAnchor, bottom: nil, right: nil, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 0, width: 90, height: 90, enableInsets: false)
+        mediaHolderView.translatesAutoresizingMaskIntoConstraints = false
+        mediaHolderView.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        mediaHolderView.heightAnchor.constraint(equalToConstant: 90).isActive = true
 
-        
-        lblTitle.anchor(top: contentHolderView.topAnchor, left: img.rightAnchor, bottom: nil, right: contentHolderView.rightAnchor, paddingTop: 15, paddingLeft: 15, paddingBottom: 0, paddingRight: 15, width: 0, height: 0, enableInsets: false)
-        lblTitle.setContentHuggingPriority(.defaultHigh, for:.vertical)
-        
+        mediaHolderView.addSubview(img)
+        mediaHolderView.clipsToBounds = true
 
-        lblDescription.anchor(top: lblTitle.bottomAnchor, left: lblTitle.leftAnchor, bottom: nil, right: lblTitle.rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-           
-        let constBottom = lblDescription.bottomAnchor.constraint(equalTo: bottomAnchor)
-        constBottom.constant = -10
-        constBottom.priority = .defaultLow
-        constBottom.isActive = true
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.leadingAnchor.constraint(equalTo: mediaHolderView.leadingAnchor, constant: 10).isActive = true
+        img.topAnchor.constraint(equalTo: mediaHolderView.topAnchor, constant: 0).isActive = true
+        img.bottomAnchor.constraint(equalTo: mediaHolderView.bottomAnchor, constant: 0).isActive = true
+        img.rightAnchor.constraint(equalTo: mediaHolderView.rightAnchor, constant: 0).isActive = true
+        img.clipsToBounds = true
+        
+        let subStackView = UIStackView.init(arrangedSubviews: [lblTitle,lblDescription])
+        subStackView.backgroundColor = .red
+        subStackView.translatesAutoresizingMaskIntoConstraints = false
+        subStackView.axis = .vertical
+        subStackView.distribution = .fill
+        subStackView.spacing = 10
+        subStackView.alignment = .top
+        subStackView.isLayoutMarginsRelativeArrangement = true
+        subStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 5)
+
+        let stackView = UIStackView.init(arrangedSubviews: [mediaHolderView, subStackView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .top
+        stackView.spacing = 10
+        contentHolderView.addSubview( stackView)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 0)
+        
+        stackView.centerXAnchor.constraint(equalTo: contentHolderView.centerXAnchor).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: contentHolderView.centerYAnchor).isActive = true
+        stackView.widthAnchor.constraint(equalTo: contentHolderView.widthAnchor).isActive = true
+        stackView.heightAnchor.constraint(equalTo: contentHolderView.heightAnchor).isActive = true
     }
     
     

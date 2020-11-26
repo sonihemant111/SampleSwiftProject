@@ -51,17 +51,25 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.clipsToBounds = true
         // Adding all the views as labels and image
-        
         addSubview(contentHolderView)
         contentHolderView.addSubview(img)
         contentHolderView.addSubview(lblDescription)
         contentHolderView.addSubview(lblTitle)
         
+        self.applyConatrainsOnViews()
 //        lblTitle.backgroundColor = UIColor.red
 //        lblDescription.backgroundColor = UIColor.yellow
 //        contentHolderView.backgroundColor = UIColor.green
 //        self.backgroundColor = UIColor.systemPink
         
+        // set a border and corner radius on comntent view
+        contentHolderView.layer.borderWidth = 1.0
+        contentHolderView.layer.borderColor = AppColors.lightGrayColor.cgColor
+        contentHolderView.layer.cornerRadius = 10.0
+    }
+    
+    // Method to apply constraint on all the UIViews element
+    func applyConatrainsOnViews() {
         // Applying constraints on the views
         contentHolderView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0, enableInsets: false)
         contentHolderView.heightAnchor.constraint(greaterThanOrEqualToConstant: 110).isActive = true
@@ -74,7 +82,6 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         
         
         lblDescription.anchor(top: lblTitle.bottomAnchor, left: lblTitle.leftAnchor, bottom: contentHolderView.bottomAnchor, right: lblTitle.rightAnchor, paddingTop: 15, paddingLeft: 0, paddingBottom: 10, paddingRight: 0, width: 0, height: 0, enableInsets: false)
-
     }
     
     required init?(coder: NSCoder) {

@@ -15,20 +15,22 @@ class CountriesInformationView: UIView {
     // Variables
     let tblView = UITableView()
     var loaderView: NVActivityIndicatorView!
-    private var safeArea: UILayoutGuide!
     private var refreshController = UIRefreshControl()
-    private var objCountriesInformationViewModel = CountriesInformationViewModel()
-    private var objDataSource = CountriesInformationDataSource.shared
+    private var countriesInformationViewModel = CountriesInformationViewModel()
+    private var countryDataSource = CountriesInformationDataSource.shared
     var updateTitle: (() -> Void)?
     var countryResultFetched: (() -> Void)?
-    let objCountriesInformationPresenter = CountriesInformationPresenter()
     
     // Method to setup data initially
     func initialSetup() {
-        safeArea = self.layoutMarginsGuide
         self.configureViews()
         self.setupRefreshController()
         self.fetchCountryData()
+    }
+    
+    override func layoutSubviews() {
+        // updating frame of loader view
+        loaderView.frame = CGRect(x: self.center.x - 25, y: self.center.y, width: 50, height: 50)
     }
     
     // setup Refresher controller
@@ -43,7 +45,7 @@ class CountriesInformationView: UIView {
     // pull to refresh the list of forums
     @objc func pullToRefreshCountryData() {
         self.refreshController.endRefreshing()
-        self.fetchCountryData(false)
+        self.fetchCountryData(true)
     }
     
     // Method to configure UI Element
@@ -90,24 +92,23 @@ class CountriesInformationView: UIView {
     }
     
     // Refresh Fav Feed
-    @objc func fetchCountryData(_ isRefreshing: Bool = true) {
+    @objc func fetchCountryData(_ isRefreshing: Bool = false) {
         if (AppNetworking.isConnected()) {
             // Call API to fetch the result
-            if isRefreshing {
+            if !isRefreshing {
                 self.loaderView.startAnimating()
                 self.loaderView.isHidden = false
             }
-            objCountriesInformationViewModel.objCountriesInformationPresenter.fetchCountreyData { [weak self] (model, err) in
-                guard let self = self else { return }
-                
-                if err != nil {
-                    self.reloadCountryData()
-                    return
+
+            countriesInformationViewModel.fetchCountryData { (result) in
+                switch result {
+                case .success(let model):
+                    guard let arrCountryData = model.countryData else { return }
+                    self.countryDataSource.setCountryData(arrCountryData)
+                    self.countryDataSource.setCountryName(model.countryName ?? "")
+                case .failure(let err):
+                    self.makeToast(err.localizedDescription)
                 }
-                
-                guard let model = model, let arrCountryData = model.countryData else { return }
-                self.objDataSource.setCountryData(arrCountryData)
-                self.objDataSource.setCountryName(model.countryName ?? "")
                 DispatchQueue.main.async {
                     // Update the title of the screen with fetched country name
                     self.reloadCountryData()
@@ -134,7 +135,7 @@ extension CountriesInformationView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let arrCountryData = self.objDataSource.getCountryData() else {
+        guard let arrCountryData = self.countryDataSource.getCountryData() else {
             return 0
         }
         return arrCountryData.count
@@ -142,7 +143,7 @@ extension CountriesInformationView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryDetailCustomTableViewCell", for: indexPath) as! CountryDetailCustomTableViewCell
-        if let objCountryData = self.objDataSource.getCountryDataOfIndex(indexPath.row) {
+        if let objCountryData = self.countryDataSource.getCountryDataOfIndex(indexPath.row) {
             cell.setUpData(objCountryData)
         }
         return cell
@@ -157,7 +158,7 @@ extension CountriesInformationView: UITableViewDataSourcePrefetching {
         indexPaths.forEach { [weak self] (index) in
             guard let `self` = self else { return }
             
-            if let objCountryData = self.objDataSource.getCountryDataOfIndex(index.row) {
+            if let objCountryData = self.countryDataSource.getCountryDataOfIndex(index.row) {
                 UIImageView.cacheImage(url: objCountryData.image ?? "")
             }
         }

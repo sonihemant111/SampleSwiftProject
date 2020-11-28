@@ -9,17 +9,16 @@
 import UIKit
 
 class CountriesInformationController: UIViewController {
-    let vw = CountriesInformationView()
+    let countryInfoView = CountriesInformationView()
     
     // Life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.red
         
         // Calling initial setup method of the view
-        vw.initialSetup()
+        countryInfoView.initialSetup()
         // To update the navigation title
-        vw.updateTitle = { [weak self] in
+        countryInfoView.updateTitle = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if let countryName = CountriesInformationDataSource.shared.getCountryName() {
@@ -27,18 +26,17 @@ class CountriesInformationController: UIViewController {
                 }
             }
         }
-        vw.countryResultFetched = { [weak self] in
+        // to do
+        countryInfoView.countryResultFetched = { [weak self] in
             guard let self = self else { return }
-            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.vw.tblView, isLargeText: false, emptyDataState: .noData)
+            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.tblView, isLargeText: false, emptyDataState: .noData)
         }
     }
     
     override func loadView() {
-        vw.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         // Assigning custom view to viewController's view
-        self.view = vw
+        self.view = countryInfoView
     }
-    
     
 }
 

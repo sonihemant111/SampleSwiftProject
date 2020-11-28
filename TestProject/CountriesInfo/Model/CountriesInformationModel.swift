@@ -31,3 +31,4 @@ struct CountryData: Codable {
         case image = "imageHref"
     }
 }
+

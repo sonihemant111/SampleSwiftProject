@@ -31,7 +31,6 @@
 		84F686A32567FC1D00450BEA /* CountriesInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686A22567FC1D00450BEA /* CountriesInformationViewModel.swift */; };
 		84F686A62567FC4F00450BEA /* CountriesInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686A52567FC4F00450BEA /* CountriesInformationController.swift */; };
 		84F686A92567FC5600450BEA /* CountriesInformationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686A82567FC5600450BEA /* CountriesInformationDataSource.swift */; };
-		84F686AC2567FC5E00450BEA /* CountriesInformationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686AB2567FC5E00450BEA /* CountriesInformationPresenter.swift */; };
 		84F686B12567FC7400450BEA /* CountriesInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686AE2567FC7400450BEA /* CountriesInformationView.swift */; };
 		84F686B22567FC7400450BEA /* CountryDetailCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686B02567FC7400450BEA /* CountryDetailCustomTableViewCell.swift */; };
 		84F686B72568231C00450BEA /* UIVIewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686B62568231C00450BEA /* UIVIewController+Extension.swift */; };
@@ -76,7 +75,6 @@
 		84F686A22567FC1D00450BEA /* CountriesInformationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationViewModel.swift; sourceTree = "<group>"; };
 		84F686A52567FC4F00450BEA /* CountriesInformationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationController.swift; sourceTree = "<group>"; };
 		84F686A82567FC5600450BEA /* CountriesInformationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationDataSource.swift; sourceTree = "<group>"; };
-		84F686AB2567FC5E00450BEA /* CountriesInformationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationPresenter.swift; sourceTree = "<group>"; };
 		84F686AE2567FC7400450BEA /* CountriesInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationView.swift; sourceTree = "<group>"; };
 		84F686B02567FC7400450BEA /* CountryDetailCustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryDetailCustomTableViewCell.swift; sourceTree = "<group>"; };
 		84F686B62568231C00450BEA /* UIVIewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extension.swift"; sourceTree = "<group>"; };
@@ -226,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				84F686AD2567FC7400450BEA /* View */,
-				84F686AA2567FC5E00450BEA /* Presenter */,
 				84F686A72567FC5600450BEA /* DataSource */,
 				84F686A42567FC4F00450BEA /* Controller */,
 				84F686A12567FC1D00450BEA /* ViewModel */,
@@ -277,14 +274,6 @@
 				84F686A82567FC5600450BEA /* CountriesInformationDataSource.swift */,
 			);
 			path = DataSource;
-			sourceTree = "<group>";
-		};
-		84F686AA2567FC5E00450BEA /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				84F686AB2567FC5E00450BEA /* CountriesInformationPresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		84F686AD2567FC7400450BEA /* View */ = {
@@ -479,7 +468,6 @@
 				84F686A02567F84500450BEA /* Data+Extension.swift in Sources */,
 				84F6868D2567F4A600450BEA /* AppColor.swift in Sources */,
 				84F686B22567FC7400450BEA /* CountryDetailCustomTableViewCell.swift in Sources */,
-				84F686AC2567FC5E00450BEA /* CountriesInformationPresenter.swift in Sources */,
 				84F686A32567FC1D00450BEA /* CountriesInformationViewModel.swift in Sources */,
 				844D2CF92566238100D81189 /* AppDelegate.swift in Sources */,
 				843C18E82568B60100DC2999 /* URLManager.swift in Sources */,

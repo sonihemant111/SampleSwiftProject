@@ -89,7 +89,6 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         // Added title and description in stackview
         contentHolderSubStackView.addArrangedSubview(lblTitle)
         contentHolderSubStackView.addArrangedSubview(lblDescription)
-        contentHolderSubStackView.backgroundColor = .red
         contentHolderSubStackView.translatesAutoresizingMaskIntoConstraints = false
         contentHolderSubStackView.axis = .vertical
         contentHolderSubStackView.distribution = .fill

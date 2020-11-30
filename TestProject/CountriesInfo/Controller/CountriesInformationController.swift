@@ -18,6 +18,8 @@ class CountriesInformationController: UIViewController {
         super.viewDidLoad()
         // Calling initial setup method of the view
         countryInfoView.initialSetup()
+        // set title initially
+        self.title = "loading.."
         // pull to refresh update data
         countryInfoView.refreshCountryData = { [weak self] in
             guard let self = self else { return }
@@ -52,7 +54,7 @@ class CountriesInformationController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     // Update the title of the screen with fetched country name
-                    self.countryInfoView.tblView.reloadData()
+                    self.countryInfoView.refreshList()
                     self.countryInfoView.showHideLoader(false)
                     self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.tblView, isLargeText: false, emptyDataState: .noData)
                 }

@@ -89,6 +89,11 @@ class CountriesInformationView: UIView {
             self.loaderView.isHidden = true
         }
     }
+    
+    // reload table view
+    func refreshList() {
+        self.tblView.reloadData()
+    }
 }
 
 // MARK:- TableView Delegate and DataSource

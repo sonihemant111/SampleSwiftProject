@@ -56,7 +56,7 @@ class CountriesInformationController: UIViewController {
                     // Update the title of the screen with fetched country name
                     self.countryInfoView.refreshList()
                     self.countryInfoView.showHideLoader(false)
-                    self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.tblView, isLargeText: false, emptyDataState: .noData)
+                    self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false, emptyDataState: .noData)
                 }
             }
         } else {

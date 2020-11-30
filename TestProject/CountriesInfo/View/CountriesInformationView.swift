@@ -13,13 +13,12 @@ import NVActivityIndicatorView
 
 class CountriesInformationView: UIView {
     // Variables
-    let tblView = UITableView()
+    let countryInfoTableView = UITableView()
     var countryInfoListViewModel: CountryInfoListViewModel!
     var refreshCountryData: (() -> Void)?
     private var refreshController = UIRefreshControl()
     private var loaderView: NVActivityIndicatorView!
 
-    
     // Method to setup data initially
     func initialSetup() {
         self.configureViews()
@@ -33,7 +32,7 @@ class CountriesInformationView: UIView {
     // setup Refresher controller
     private func setupRefreshController() {
         self.refreshController.tintColor = AppColors.charcoalGray
-        self.tblView.refreshControl = refreshController
+        self.countryInfoTableView.refreshControl = refreshController
         self.refreshController.addTarget(self,
                                          action: #selector(pullToRefreshCountryData),
                                          for: .valueChanged)
@@ -58,23 +57,23 @@ class CountriesInformationView: UIView {
     // Method to configure the table view
     private func configureTableView() {
         // Adding table view in controller's view
-        self.addSubview(tblView)
+        self.addSubview(countryInfoTableView)
         // Apply constraints on table view
-        tblView.translatesAutoresizingMaskIntoConstraints = false
-        tblView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        tblView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        tblView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        tblView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        countryInfoTableView.translatesAutoresizingMaskIntoConstraints = false
+        countryInfoTableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        countryInfoTableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        countryInfoTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        countryInfoTableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         // Register table view Cell
-        tblView.register(CountryDetailCustomTableViewCell.self, forCellReuseIdentifier: "CountryDetailCustomTableViewCell")
+        countryInfoTableView.register(CountryDetailCustomTableViewCell.self, forCellReuseIdentifier: "CountryDetailCustomTableViewCell")
         // Hide the veritcal scroll
-        tblView.showsVerticalScrollIndicator = false
+        countryInfoTableView.showsVerticalScrollIndicator = false
         // set delegate and datasource as self
-        tblView.delegate = self
-        tblView.dataSource = self
-        tblView.separatorStyle = .none
+        countryInfoTableView.delegate = self
+        countryInfoTableView.dataSource = self
+        countryInfoTableView.separatorStyle = .none
         // set content edgeInset
-        tblView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        countryInfoTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         // setup refresh controller
         self.setupRefreshController()
     }
@@ -92,7 +91,7 @@ class CountriesInformationView: UIView {
     
     // reload table view
     func refreshList() {
-        self.tblView.reloadData()
+        self.countryInfoTableView.reloadData()
     }
 }
 

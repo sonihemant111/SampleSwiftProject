@@ -70,8 +70,8 @@ class TestProjectTests: XCTestCase {
 }
 
 
-class CountriesInformationPresenterTest: CountriesInformationProtocol {
-    func fetchCountreyData( _ completionHandler: @escaping  CountryDataCompletion) {
+class CountriesInformationPresenterTest {
+    func fetchCountreyData( _ completionHandler: @escaping  ((CountryInformation?, Error?) -> Void)) {
         let bundle = Bundle(for: type(of: self))
         let urlPath = bundle.path(forResource: "Success", ofType: "json")
         
@@ -91,8 +91,8 @@ class CountriesInformationPresenterTest: CountriesInformationProtocol {
 }
 
 
-class CountriesInformationPresenterTestFail: CountriesInformationProtocol {
-    func fetchCountreyData( _ completionHandler: @escaping  CountryDataCompletion) {
+class CountriesInformationPresenterTestFail {
+    func fetchCountreyData( _ completionHandler: @escaping  ((CountryInformation?, Error?) -> Void)) {
         let bundle = Bundle(for: type(of: self))
         let urlPath = bundle.path(forResource: "Success_Empty", ofType: "json")
         

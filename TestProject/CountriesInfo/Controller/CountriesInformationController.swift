@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 class CountriesInformationController: UIViewController {
     let countryInfoView = CountriesInformationView()
-    private var countryInfoListViewModel: CountryInfoListViewModel!
+    private var countryInfoListViewModel = CountryInfoListViewModel()
     
     // Life cycle method
     override func viewDidLoad() {
@@ -23,42 +23,11 @@ class CountriesInformationController: UIViewController {
         // pull to refresh update data
         countryInfoView.refreshCountryData = { [weak self] in
             guard let self = self else { return }
-            self.getCountryData(true)
+            self.countryInfoListViewModel.fetchCountryData(isRefreshingList: true)
         }
-        self.getCountryData()
-    }    
-    
-    // Refresh Fav Feed
-    @objc func getCountryData(_ isRefreshing: Bool = false) {
+        countryInfoListViewModel.delegate = self
         if (AppNetworking.isConnected()) {
-            // Call API to fetch the result
-            if !isRefreshing {
-                self.countryInfoView.showHideLoader(true)
-            }
-            // create url
-            let urlManager = URLManager()
-            let url = urlManager.countyFacts
-            
-            WebService.fetchCountryData(url) { (result) in
-                switch result {
-                case .success(let model):
-                    self.countryInfoListViewModel = CountryInfoListViewModel(model)
-                    self.countryInfoView.countryInfoListViewModel = self.countryInfoListViewModel
-                    // set navigation title
-                    DispatchQueue.main.async {
-                        self.title = self.countryInfoListViewModel.getCompanyName()
-                    }
-                case .failure(let err):
-                    print(err)
-                    self.countryInfoView.makeToast(err.localizedDescription)
-                }
-                DispatchQueue.main.async {
-                    // Update the title of the screen with fetched country name
-                    self.countryInfoView.refreshList()
-                    self.countryInfoView.showHideLoader(false)
-                    self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false, emptyDataState: .noData)
-                }
-            }
+            countryInfoListViewModel.fetchCountryData(isRefreshingList: false)
         } else {
             // show message
             self.countryInfoView.makeToast("Please check your Internet Connection")
@@ -71,3 +40,38 @@ class CountriesInformationController: UIViewController {
     }
 }
 
+
+// MARK: - API Response Delegate
+//=============================
+extension CountriesInformationController: CountryInfoListDelegate {
+    func willHitApi(shouldPlayLoader: Bool) {
+        // Show/ Hide Loader
+        if shouldPlayLoader {
+            self.countryInfoView.showHideLoader(true)
+        } else {
+            self.countryInfoView.showHideLoader(false)
+        }
+    }
+    
+    func didReceiveCountryData() {
+        DispatchQueue.main.async {
+            // update the navigation title with country name
+            self.title = self.countryInfoListViewModel.getCountryName()
+            self.countryInfoView.countryInfoListViewModel = self.countryInfoListViewModel
+            // Hide Loader
+            self.countryInfoView.showHideLoader(false)
+            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false, emptyDataState: .noData)
+            self.countryInfoView.refreshList()
+        }
+    }
+    
+    func didReceiveError(message: String) {
+        DispatchQueue.main.async {
+            // Hide Loader
+            self.countryInfoView.showHideLoader(false)
+            // reload list
+            self.countryInfoView.refreshList()
+            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false, emptyDataState: .noData)
+        }
+    }
+}

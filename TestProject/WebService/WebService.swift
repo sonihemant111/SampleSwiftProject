@@ -19,7 +19,7 @@ class WebService {
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-
+        
         guard let request = requestObj.request else {
             return
         }
@@ -49,5 +49,23 @@ class WebService {
         }
         // execute the HTTP request
         task.resume()
+    }
+    
+    static func fetchCountryData(_ url: String, _ completionHandler: @escaping (Result<CountryInformation, NSError>)-> Void) {
+        // Call API to fetch all country's data
+        guard let requestManager = RequestManager(url: url, httpMethod: "GET") else {
+            return
+        }
+        
+        WebService.GET(requestObj: requestManager, success: { (data) in
+            guard let info = data.decode(type: CountryInformation.self) else {
+                let err = NSError(domain: "", code: 1222, userInfo: [NSLocalizedDescriptionKey: "Parsing error"])
+                completionHandler(.failure(err))
+                return
+            }
+            completionHandler(.success(info))
+        }) { (err) -> (Void) in
+            completionHandler(.failure(err))
+        }
     }
 }

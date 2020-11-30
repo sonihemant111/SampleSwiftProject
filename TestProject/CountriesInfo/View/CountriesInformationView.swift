@@ -14,18 +14,15 @@ import NVActivityIndicatorView
 class CountriesInformationView: UIView {
     // Variables
     let tblView = UITableView()
-    var loaderView: NVActivityIndicatorView!
+    var countryInfoListViewModel: CountryInfoListViewModel!
+    var refreshCountryData: (() -> Void)?
     private var refreshController = UIRefreshControl()
-    private var countriesInformationViewModel = CountriesInformationViewModel()
-    private var countryDataSource = CountriesInformationDataSource.shared
-    var updateTitle: (() -> Void)?
-    var countryResultFetched: (() -> Void)?
+    private var loaderView: NVActivityIndicatorView!
+
     
     // Method to setup data initially
     func initialSetup() {
         self.configureViews()
-        self.setupRefreshController()
-        self.fetchCountryData()
     }
     
     override func layoutSubviews() {
@@ -45,7 +42,9 @@ class CountriesInformationView: UIView {
     // pull to refresh the list of forums
     @objc func pullToRefreshCountryData() {
         self.refreshController.endRefreshing()
-        self.fetchCountryData(true)
+        if let callBack = refreshCountryData {
+            callBack()
+        }
     }
     
     // Method to configure UI Element
@@ -76,49 +75,18 @@ class CountriesInformationView: UIView {
         tblView.separatorStyle = .none
         // set content edgeInset
         tblView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        // setup refresh controller
+        self.setupRefreshController()
     }
     
-    // Method to reload data once result fetched
-    func reloadCountryData() {
-        if let callBack = self.updateTitle {
-            callBack()
-        }
-        DispatchQueue.main.async {
-            if let callBack = self.countryResultFetched {
-                callBack()
-            }
-            self.tblView.reloadData()
-        }
-    }
-    
-    // Refresh Fav Feed
-    @objc func fetchCountryData(_ isRefreshing: Bool = false) {
-        if (AppNetworking.isConnected()) {
-            // Call API to fetch the result
-            if !isRefreshing {
-                self.loaderView.startAnimating()
-                self.loaderView.isHidden = false
-            }
-
-            countriesInformationViewModel.fetchCountryData { (result) in
-                switch result {
-                case .success(let model):
-                    guard let arrCountryData = model.countryData else { return }
-                    self.countryDataSource.setCountryData(arrCountryData)
-                    self.countryDataSource.setCountryName(model.countryName ?? "")
-                case .failure(let err):
-                    self.makeToast(err.localizedDescription)
-                }
-                DispatchQueue.main.async {
-                    // Update the title of the screen with fetched country name
-                    self.reloadCountryData()
-                    self.loaderView.stopAnimating()
-                    self.loaderView.isHidden = true
-                }
-            }
+    // Method to show/Hide loader
+    func showHideLoader(_ show: Bool) {
+        if show {
+            self.loaderView.startAnimating()
+            self.loaderView.isHidden = false
         } else {
-            // show message
-            self.makeToast("Please check your Internet Connection")
+            self.loaderView.stopAnimating()
+            self.loaderView.isHidden = true
         }
     }
 }
@@ -127,7 +95,11 @@ class CountriesInformationView: UIView {
 //=============================
 extension CountriesInformationView: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if self.countryInfoListViewModel == nil {
+            return 0
+        } else {
+            return self.countryInfoListViewModel.numberOfSection
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -135,17 +107,13 @@ extension CountriesInformationView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let arrCountryData = self.countryDataSource.getCountryData() else {
-            return 0
-        }
-        return arrCountryData.count
+        return self.countryInfoListViewModel.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountryDetailCustomTableViewCell", for: indexPath) as! CountryDetailCustomTableViewCell
-        if let objCountryData = self.countryDataSource.getCountryDataOfIndex(indexPath.row) {
-            cell.setUpData(objCountryData)
-        }
+        let countryInfoViewModel = self.countryInfoListViewModel.countryInfoAtIndex(indexPath.row)
+        cell.setUpData(countryInfoViewModel)
         return cell
     }
 }
@@ -157,10 +125,8 @@ extension CountriesInformationView: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { [weak self] (index) in
             guard let `self` = self else { return }
-            
-            if let objCountryData = self.countryDataSource.getCountryDataOfIndex(index.row) {
-                UIImageView.cacheImage(url: objCountryData.image ?? "")
-            }
+            let countryInfoViewModel = self.countryInfoListViewModel.countryInfoAtIndex(index.row)
+            UIImageView.cacheImage(url: countryInfoViewModel.imgUrl)
         }
     }
 }

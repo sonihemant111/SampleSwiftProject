@@ -7,27 +7,55 @@
 //
 
 import Foundation
-// Country Information view model
-class CountriesInformationViewModel {
-    private let urlManager = URLManager()
+// CountryInfoList View Model
+class CountryInfoListViewModel {
+    private let countryName: String
+    private var arrCountryInfo = [CountryData]()
     
-    func fetchCountryData( _ completionHandler: @escaping (Result<CountryInformation, NSError>)-> Void) {
-        // Call API to fetch all country's data
-        guard let requestManager = RequestManager(url: urlManager.countyFacts, httpMethod: "GET") else {
-            return
-        }
-        
-        WebService.GET(requestObj: requestManager, success: { (data) in
-            guard let info = data.decode(type: CountryInformation.self) else {
-                let err = NSError(domain: "", code: 1222, userInfo: [NSLocalizedDescriptionKey: "Parsing error"])
-                completionHandler(.failure(err))
-                return
-            }
-            completionHandler(.success(info))
-        }) { (err) -> (Void) in
-            completionHandler(.failure(err))
-        }
+    var numberOfSection: Int {
+        return 1
     }
     
+    // Method to get country Name
+    func getCompanyName() -> String {
+        return self.countryName
+    }
     
+    // Method to get count if country info array
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        return self.arrCountryInfo.count
+    }
+    
+    // Method to get CountryInfoViewModel at specific index of arrCountryInfo
+    func countryInfoAtIndex(_ index: Int) -> CountryInfoViewModel{
+        let countryInfo = self.arrCountryInfo[index]
+        return CountryInfoViewModel(countryInfo)
+    }
+    
+    init(_ countryInfo: CountryInformation) {
+        self.countryName = (countryInfo.countryName ?? "").capitalized
+        guard let arrCountryData = countryInfo.countryData else { return }
+        self.arrCountryInfo  = arrCountryData
+    }
+}
+
+// Country Info view Model
+struct CountryInfoViewModel {
+    private let countryInfo: CountryData
+    
+    var imgUrl: String {
+        return self.countryInfo.image ?? ""
+    }
+    
+    var title: String {
+        return (self.countryInfo.title?.trimmingCharacters(in: .whitespacesAndNewlines).capitalized ?? "Not Available")
+    }
+    
+    var description: String {
+        return (self.countryInfo.description?.trimmingCharacters(in: .whitespacesAndNewlines).capitalized ?? "Not Available").capitalized
+    }
+    
+    init(_ countryInfo: CountryData) {
+        self.countryInfo  = countryInfo
+    }
 }

@@ -11,30 +11,27 @@ import Kingfisher
 
 class CountryDetailCustomTableViewCell: UITableViewCell {
     
-    // IBOutlet
-    @IBOutlet weak var containerView: UIView!
-    
     // Label to display the title
-    private let lblTitle : UILabel = {
+    private let lblTitle: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
         return lbl
     }()
     
     // contentHolderView holds all the elements in cell
-    private let contentHolderView : UIView = {
+    private let contentHolderView: UIView = {
         let vw = UIView()
         return vw
     }()
     
     // Label to display the description
-    private let lblDescription : UILabel = {
+    private let lblDescription: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 0
         return lbl
     }()
     
-    private let img : UIImageView = {
+    private let imgCountryInfo: UIImageView = {
         let imgView = UIImageView(image: UIImage())
         imgView.contentMode = .scaleAspectFit
         imgView.clipsToBounds = true
@@ -42,20 +39,18 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
     }()
     
     // contentHolderSubStackView holding lblTitle and lblDescription
-    private let contentHolderSubStackView : UIStackView = {
+    private let contentHolderSubStackView: UIStackView = {
         let stackview = UIStackView()
         return stackview
     }()
     
-    private let contentHolderStackView : UIStackView = {
+    private let contentHolderStackView: UIStackView = {
         let stackview = UIStackView()
         return stackview
     }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        self.configureCell()
     }
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -63,7 +58,7 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         self.clipsToBounds = true
         // Adding the views in parent view
         addSubview(contentHolderView)
-        addSubview(img)
+        addSubview(imgCountryInfo)
         
         // setup/configure
         self.setupAllViewElement()
@@ -84,12 +79,12 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         contentHolderView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         contentHolderView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         // Confiquring image (Constraints)
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        img.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        img.widthAnchor.constraint(equalToConstant: 90).isActive = true
-        img.heightAnchor.constraint(equalToConstant: 90).isActive = true
-        img.clipsToBounds = true
+        imgCountryInfo.translatesAutoresizingMaskIntoConstraints = false
+        imgCountryInfo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        imgCountryInfo.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        imgCountryInfo.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        imgCountryInfo.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        imgCountryInfo.clipsToBounds = true
         
         // Added title and description in stackview
         contentHolderSubStackView.addArrangedSubview(lblTitle)
@@ -104,7 +99,7 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         contentHolderSubStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 5)
 
         // adding contentHolderSubStackView and image in main contentHolder stackView
-        contentHolderStackView.addArrangedSubview(img)
+        contentHolderStackView.addArrangedSubview(imgCountryInfo)
         contentHolderStackView.addArrangedSubview(contentHolderSubStackView)
         contentHolderStackView.translatesAutoresizingMaskIntoConstraints = false
         contentHolderStackView.axis = .horizontal
@@ -120,6 +115,8 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         contentHolderStackView.centerYAnchor.constraint(equalTo: contentHolderView.centerYAnchor).isActive = true
         contentHolderStackView.widthAnchor.constraint(equalTo: contentHolderView.widthAnchor).isActive = true
         contentHolderStackView.heightAnchor.constraint(equalTo: contentHolderView.heightAnchor).isActive = true
+        
+         self.configureCell()
     }
     
     required init?(coder: NSCoder) {
@@ -132,7 +129,7 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         // reset data
-        self.img.image = UIImage()
+        self.imgCountryInfo.image = UIImage()
         self.lblTitle.text = ""
         self.lblDescription.text = ""
     }
@@ -143,14 +140,6 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
         lblDescription.numberOfLines = 0
         self.setTextColor()
         self.setFont()
-        // set corner radius of image
-        self.img.layer.cornerRadius = 5.0
-        self.img.clipsToBounds = true
-        // set border of container view
-        self.containerView.layer.borderWidth = 1.0
-        self.containerView.layer.borderColor = AppColors.lightGrayColor.cgColor
-        self.containerView.layer.cornerRadius = 5.0
-        self.containerView.clipsToBounds = true
     }
     
     // Method to set Font of the Labels
@@ -166,14 +155,14 @@ class CountryDetailCustomTableViewCell: UITableViewCell {
     }
     
     // Method to setup data
-    func setUpData(_ objCountryData: CountryData) {
+    func setUpData(_ countryInfoViewModel: CountryInfoViewModel) {
         // set image
-        let imgUrl = URL(string: objCountryData.image ?? "")
-        img.kf.setImage( with: imgUrl, placeholder: #imageLiteral(resourceName: "placeholderImage"))
+        let imgUrl = URL(string: countryInfoViewModel.imgUrl)
+        imgCountryInfo.kf.setImage( with: imgUrl, placeholder: #imageLiteral(resourceName: "placeholderImage"))
         
         // set title and subtitle text
-        lblTitle.text = objCountryData.title?.trimmingCharacters(in: .whitespacesAndNewlines).capitalized ?? "Not available"
-        lblDescription.text = objCountryData.description?.trimmingCharacters(in: .whitespacesAndNewlines).capitalizingFirstLetter() ?? "Not available"
+        lblTitle.text = countryInfoViewModel.title.trimmingCharacters(in: .whitespacesAndNewlines).capitalized
+        lblDescription.text = countryInfoViewModel.description.trimmingCharacters(in: .whitespacesAndNewlines).capitalizingFirstLetter()
         
         self.selectionStyle = .none
     }

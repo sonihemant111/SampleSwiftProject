@@ -9,7 +9,6 @@
 import Foundation
 
 enum AppNetworking {
-    
     static func isConnected() -> Bool {
         do {
             return try Reachability().connection != .unavailable
@@ -17,6 +16,4 @@ enum AppNetworking {
             return false
         }
     }
-    
-    
 }

@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum ApiKey {
-    static var code: String { return "code" }
-    static var message: String { return "message" }
-}
-
 //MARK:- Api Code
 //=======================
 enum HttpStatusCode {

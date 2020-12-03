@@ -15,7 +15,7 @@ typealias JSONDictionaryArray = [JSONDictionary]
 
 class WebService {
     
-    static func GET(requestObj: RequestManager, loader: Bool = true, success: @escaping SuccessResponse, failure: @escaping FailureResponse) {
+    static func GET(requestObj: RequestManager, success: @escaping SuccessResponse, failure: @escaping FailureResponse) {
         
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)

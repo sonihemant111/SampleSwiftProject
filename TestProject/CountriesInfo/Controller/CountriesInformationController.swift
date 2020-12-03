@@ -31,12 +31,20 @@ class CountriesInformationController: UIViewController {
         } else {
             // show message
             self.countryInfoView.makeToast("Please check your Internet Connection")
+            self.setupEmptyDataSet("Please check your Internet Connection")
+            self.title = ""
         }
     }
     
     override func loadView() {
         // Assigning custom view to viewController's view
+        countryInfoView.frame = UIScreen.main.bounds
         self.view = countryInfoView
+    }
+    
+    // Method to set empty data set
+    func setupEmptyDataSet(_ message: String) {
+        self.settingEmptyDataSet(placeholderMessage: message, placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false)
     }
 }
 
@@ -60,7 +68,7 @@ extension CountriesInformationController: CountryInfoListDelegate {
             self.countryInfoView.countryInfoListViewModel = self.countryInfoListViewModel
             // Hide Loader
             self.countryInfoView.showHideLoader(false)
-            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false, emptyDataState: .noData)
+            self.setupEmptyDataSet("No Data Found")
             self.countryInfoView.refreshList()
         }
     }
@@ -71,7 +79,9 @@ extension CountriesInformationController: CountryInfoListDelegate {
             self.countryInfoView.showHideLoader(false)
             // reload list
             self.countryInfoView.refreshList()
-            self.settingEmptyDataSet(placeholder: "No Data Found", placeholderTV: self.countryInfoView.countryInfoTableView, isLargeText: false, emptyDataState: .noData)
+            self.setupEmptyDataSet("No Data Found")
+            // show message
+            self.countryInfoView.makeToast(message)
         }
     }
 }

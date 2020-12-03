@@ -13,6 +13,12 @@ typealias FailureResponse = (NSError) -> (Void)
 typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
 
+//MARK:- Api Code
+//=======================
+enum HttpStatusCode {
+    static var success: Int { return 200 } // Success
+}
+
 class WebService {
     
     static func GET(requestObj: RequestManager, success: @escaping SuccessResponse, failure: @escaping FailureResponse) {

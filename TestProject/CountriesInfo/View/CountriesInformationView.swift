@@ -40,9 +40,9 @@ class CountriesInformationView: UIView {
     
     // pull to refresh the list of forums
     @objc func pullToRefreshCountryData() {
-        self.refreshController.endRefreshing()
         if let callBack = refreshCountryData {
             callBack()
+            self.refreshController.endRefreshing()
         }
     }
     

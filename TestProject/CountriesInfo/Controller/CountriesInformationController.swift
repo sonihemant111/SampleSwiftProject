@@ -13,32 +13,42 @@ class CountriesInformationController: UIViewController {
     let countryInfoView = CountriesInformationView()
     private var countryInfoListViewModel = CountryInfoListViewModel()
     
+    override func viewDidLayoutSubviews() {
+        countryInfoView.frame = self.view.frame
+    }
+    
     // Life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
         // Calling initial setup method of the view
         countryInfoView.initialSetup()
         // set title initially
-        self.title = "loading.."
+        self.title = StringConstants.loadingMessage
         // pull to refresh update data
         countryInfoView.refreshCountryData = { [weak self] in
             guard let self = self else { return }
-            self.countryInfoListViewModel.fetchCountryData(isRefreshingList: true)
+            self.fetchData(true)
         }
         countryInfoListViewModel.delegate = self
+        self.fetchData()
+    }
+    
+    func fetchData(_ isRefreshingList: Bool = false) {
         if (AppNetworking.isConnected()) {
-            countryInfoListViewModel.fetchCountryData(isRefreshingList: false)
+            countryInfoListViewModel.fetchCountryData(isRefreshingList: isRefreshingList)
         } else {
             // show message
-            self.countryInfoView.makeToast("Please check your Internet Connection")
-            self.setupEmptyDataSet("Please check your Internet Connection")
+            self.countryInfoView.makeToast(StringConstants.noInternetConnectionMessage)
+            self.setupEmptyDataSet(StringConstants.noInternetConnectionMessage)
             self.title = ""
+            if isRefreshingList {
+                self.countryInfoView.stopRefreshing()
+            }
         }
     }
     
     override func loadView() {
         // Assigning custom view to viewController's view
-        countryInfoView.frame = UIScreen.main.bounds
         self.view = countryInfoView
     }
     
@@ -61,25 +71,33 @@ extension CountriesInformationController: CountryInfoListDelegate {
         }
     }
     
-    func didReceiveCountryData() {
+    func didReceiveCountryData(isRefreshingList: Bool) {
         DispatchQueue.main.async {
             // update the navigation title with country name
             self.title = self.countryInfoListViewModel.getCountryName()
             self.countryInfoView.countryInfoListViewModel = self.countryInfoListViewModel
+            // stop refreshing refreshController if it is animating
+            if isRefreshingList {
+                self.countryInfoView.stopRefreshing()
+            }
             // Hide Loader
             self.countryInfoView.showHideLoader(false)
-            self.setupEmptyDataSet("No Data Found")
+            self.setupEmptyDataSet(StringConstants.noDataFoundMessage)
             self.countryInfoView.refreshList()
         }
     }
     
-    func didReceiveError(message: String) {
+    func didReceiveError(isRefreshingList: Bool, message: String) {
         DispatchQueue.main.async {
+            // stop refreshing refreshController if it is animating
+            if isRefreshingList {
+                self.countryInfoView.stopRefreshing()
+            }
             // Hide Loader
             self.countryInfoView.showHideLoader(false)
             // reload list
             self.countryInfoView.refreshList()
-            self.setupEmptyDataSet("No Data Found")
+            self.setupEmptyDataSet(StringConstants.noDataFoundMessage)
             // show message
             self.countryInfoView.makeToast(message)
         }

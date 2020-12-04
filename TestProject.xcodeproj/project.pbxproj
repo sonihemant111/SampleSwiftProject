@@ -32,6 +32,7 @@
 		84F686B12567FC7400450BEA /* CountriesInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686AE2567FC7400450BEA /* CountriesInformationView.swift */; };
 		84F686B22567FC7400450BEA /* CountryDetailCustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686B02567FC7400450BEA /* CountryDetailCustomTableViewCell.swift */; };
 		84F686B72568231C00450BEA /* UIVIewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F686B62568231C00450BEA /* UIVIewController+Extension.swift */; };
+		84FCBCCA257A1FE50060E57C /* StringConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCBCC9257A1FE50060E57C /* StringConstant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		84F686AE2567FC7400450BEA /* CountriesInformationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesInformationView.swift; sourceTree = "<group>"; };
 		84F686B02567FC7400450BEA /* CountryDetailCustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryDetailCustomTableViewCell.swift; sourceTree = "<group>"; };
 		84F686B62568231C00450BEA /* UIVIewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Extension.swift"; sourceTree = "<group>"; };
+		84FCBCC9257A1FE50060E57C /* StringConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstant.swift; sourceTree = "<group>"; };
 		91B88E6BD3104391BE5E4E1B /* Pods-TestProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProject.release.xcconfig"; path = "Target Support Files/Pods-TestProject/Pods-TestProject.release.xcconfig"; sourceTree = "<group>"; };
 		9C910EF3B9A6B0196478C9B8 /* Pods-TestProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestProject.debug.xcconfig"; path = "Target Support Files/Pods-TestProject/Pods-TestProject.debug.xcconfig"; sourceTree = "<group>"; };
 		E67231326C6E80C6527946EE /* Pods_TestProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +205,7 @@
 			children = (
 				84F686902567F4DC00450BEA /* AppGlobals.swift */,
 				843C18E72568B60100DC2999 /* URLManager.swift */,
+				84FCBCC9257A1FE50060E57C /* StringConstant.swift */,
 				84F686842567F41000450BEA /* Resources */,
 			);
 			path = Utilities;
@@ -438,6 +441,7 @@
 				84F686B72568231C00450BEA /* UIVIewController+Extension.swift in Sources */,
 				84F686892567F43000450BEA /* String+Extension.swift in Sources */,
 				843C18E62568B56700DC2999 /* Request.swift in Sources */,
+				84FCBCCA257A1FE50060E57C /* StringConstant.swift in Sources */,
 				84F6868F2567F4AC00450BEA /* AppFont.swift in Sources */,
 				84F686992567F79F00450BEA /* WebService.swift in Sources */,
 				84F686952567F67100450BEA /* CountriesInformationModel.swift in Sources */,

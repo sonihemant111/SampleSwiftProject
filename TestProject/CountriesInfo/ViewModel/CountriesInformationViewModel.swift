@@ -11,8 +11,8 @@ import Foundation
 // Protocol CountryInfoListDelegate (API Response Delegate)
 protocol CountryInfoListDelegate: class {
     func willHitApi(shouldPlayLoader: Bool)
-    func didReceiveCountryData()
-    func didReceiveError(message: String)
+    func didReceiveCountryData(isRefreshingList: Bool)
+    func didReceiveError(isRefreshingList: Bool, message: String)
 }
 
 // CountryInfoList View Model
@@ -82,10 +82,10 @@ extension CountryInfoListViewModel {
                 self.countryName = (model.countryName ?? "").capitalized
                 guard let arrCountryData = model.countryData else { return }
                 self.arrCountryInfo = arrCountryData
-                self.delegate?.didReceiveCountryData()
+                self.delegate?.didReceiveCountryData(isRefreshingList: isRefreshingList)
             case .failure(let err):
-                print(err)
-                self.delegate?.didReceiveError(message: err.localizedDescription)
+                printDebug(err)
+                self.delegate?.didReceiveError(isRefreshingList: isRefreshingList, message: err.localizedDescription)
             }
         }
     }

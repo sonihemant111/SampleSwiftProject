@@ -42,12 +42,13 @@ class CountriesInformationView: UIView {
     @objc func pullToRefreshCountryData() {
         if let callBack = refreshCountryData {
             callBack()
-            self.refreshController.endRefreshing()
         }
     }
     
     // Method to configure UI Element
     func configureViews() {
+        // set white background color of CountriesInformationView
+        self.backgroundColor = AppColors.whiteColor
         self.configureTableView()
         // Add loader view
         loaderView = NVActivityIndicatorView(frame: CGRect(x: self.center.x - 25, y: self.center.y, width: 50, height: 50), type: .ballClipRotate, color: AppColors.darkGrayColor, padding: 0.0)
@@ -58,11 +59,12 @@ class CountriesInformationView: UIView {
     private func configureTableView() {
         // Adding table view in controller's view
         self.addSubview(countryInfoTableView)
+        let margins = self.layoutMarginsGuide
         // Apply constraints on table view
         countryInfoTableView.translatesAutoresizingMaskIntoConstraints = false
-        countryInfoTableView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        countryInfoTableView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         countryInfoTableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        countryInfoTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        countryInfoTableView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         countryInfoTableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         // Register table view Cell
         countryInfoTableView.register(CountryDetailCustomTableViewCell.self, forCellReuseIdentifier: "CountryDetailCustomTableViewCell")
@@ -92,6 +94,11 @@ class CountriesInformationView: UIView {
     // reload table view
     func refreshList() {
         self.countryInfoTableView.reloadData()
+    }
+    
+    // Stop animating refreshController
+    func stopRefreshing() {
+        self.refreshController.endRefreshing()
     }
 }
 

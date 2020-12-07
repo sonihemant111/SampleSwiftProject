@@ -1,22 +1,32 @@
 PODS:
-  - SDWebImage (5.9.5):
-    - SDWebImage/Core (= 5.9.5)
-  - SDWebImage/Core (5.9.5)
+  - EmptyDataSet-Swift (5.0.0)
+  - Kingfisher (5.15.6):
+    - Kingfisher/Core (= 5.15.6)
+  - Kingfisher/Core (5.15.6)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
-  - SDWebImage
+  - EmptyDataSet-Swift
+  - Kingfisher
+  - NVActivityIndicatorView
   - Toast-Swift
 
 SPEC REPOS:
   trunk:
-    - SDWebImage
+    - EmptyDataSet-Swift
+    - Kingfisher
+    - NVActivityIndicatorView
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  SDWebImage: 0b2ba0d56479bf6a45ecddbfd5558bea93150d25
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  Kingfisher: b3554e7bf6106115b44e8795300bad580ef2fdc7
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: ea224e1be1ee3b6c79de9b7744103dbb82900a1f
+PODFILE CHECKSUM: 6fdead47ef518a69859d3ac93df2476260abee16
 
 COCOAPODS: 1.10.0.rc.1

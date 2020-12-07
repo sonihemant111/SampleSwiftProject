@@ -6,7 +6,8 @@ target 'TestProject' do
   use_frameworks!
 
   # Pods for TestProject
-  pod 'SDWebImage'
+  pod 'Kingfisher'
   pod 'Toast-Swift'
-
+  pod 'EmptyDataSet-Swift'
+  pod 'NVActivityIndicatorView'
 end

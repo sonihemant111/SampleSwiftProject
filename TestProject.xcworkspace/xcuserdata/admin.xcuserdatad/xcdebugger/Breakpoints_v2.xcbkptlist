@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "42600387-58A6-4582-B2BE-8AC3BC6A8EB6"
+            uuid = "CCBC6BB9-51E8-487A-9557-B3185B01DEAE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TestProject/CountriesInformation/View/CountriesInformationView.swift"
+            filePath = "TestProject/CountriesInfo/Controller/CountriesInformationController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "fetchCountryData()"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "fetchData(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9AA03A73-D56C-4DC8-B825-DD4F2635F272"
+            uuid = "31D93BB5-B170-4A64-A143-3D15988E1EBA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TestProject/CountriesInformation/View/CountriesInformationView.swift"
+            filePath = "TestProject/CountriesInfo/Controller/CountriesInformationController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "fetchCountryData()"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "viewDidLayoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
